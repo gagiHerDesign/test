@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-family: "微軟正黑體";
+      box-sizing: border-box;
+    }
+
+    *::before *::after {
+      box-sizing: border-box;
+    }
+
+    .box-sizing {
+      width: 100px;
+      height: 100px;
+      padding: 10px;
+      background: #333;
+      border: 10px solid;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      color: antiquewhite;
+      background: #333;
+      margin: 2rem 0 0 0;
+      padding: 1rem;
+    }
+
+    hr {
+      margin: 2%;
+    }
+
+    .container {
+      width: 75%;
+      margin: 1% auto;
+    }
+
+    .box {
+      width: 100px;
+      height: 100px;
+      background: rgb(137, 137, 137);
+      margin: 20px auto;
+      position: relative;
+    }
+
+    .box::before {
+      /*  content為必要的屬性，就算沒有東西也要寫 */
+      content: "";
+      width: 100px;
+      height: 100px;
+      background: #333;
+      position: absolute;
+      left: -200px;
+    }
+
+    .box::after {
+      content: "";
+      width: 100px;
+      height: 100px;
+      background: rgb(185, 255, 177);
+      position: absolute;
+      /* 要注意誰蓋在誰上面的問題! 程式是由上往下跑 */
+      left: 100%;
+      top: 0;
+    }
+
+    .bg-color {
+      background: bisque;
+    }
+
+    .col {
+      width: 45%;
+      margin: 2.5%;
+      float: left;
+    }
+
+    .col img {
+      width: 100%;
+    }
+
+    .clearfix::after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+
+    .bg {
+      color: wheat;
+      height: 300px;
+      /* background: #333; */
+      position: relative;
+    }
+
+    .bg::before {
+      content: "";
+      position: absolute;
+      background: url("https://picsum.photos/1920/1080/?random=10") no-repeat center/cover;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .bg::after {
+
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    .box3 {
+      width: 150px;
+      height: 150px;
+      background: url("https://picsum.photos/150/150/?random=1") no-repeat center/cover;
+      margin: auto;
+      position: relative;
+    }
+
+    .box3::before {
+      content: "";
+      width: 150px;
+      height: 150px;
+      position: absolute;
+      top: 0;
+      left: -110%;
+      background: url("https://picsum.photos/150/150/?random=2") no-repeat center/cover;
+    }
+
+    .box3::after {
+      content: "";
+      width: 150px;
+      height: 150px;
+      position: absolute;
+      top: 0;
+      right: -110%;
+      background: url("https://picsum.photos/150/150/?random=3") no-repeat center/cover;
+      transition: 0.5s;
+    }
+
+    /* 要記得是父承 */
+    /* 如果要讓他動起來的話，一定要連在一起 */
+    /* 意思等同於==>
+        .box3:hover .inside::before{
+        樣式碼
+    } */
+    .box3:hover::before {
+      background: url("https://picsum.photos/150/150/?random=10") no-repeat center/cover;
+      left: 110%;
+    }
+
+    .box3:hover::after {
+      background: url("https://picsum.photos/150/150/?random=11") no-repeat center/cover;
+      right: 110%;
+    }
+  </style>
+
+  <body>
+    <!-- <div class="box-sizing"></div> -->
+    <div class="container">
+      <h1>偽元素 ::before、 ::after</h1>
+      <p>偽元素主要用於繪圖創作，或是輔助裝飾，讓元素擁有兩個分身來做事情。</p>
+      <div class="box">QAQ</div>
+    </div>
+
+    <div class="container">
+      <h1>啟動條件與功用特性</h1>
+      <ul style="font-size: 22px;">
+        <li>1.要有content:""才會有作用</li>
+        <li>2.建立時為inline</li>
+        <li>3.偽元素不能再建立偽元素</li>
+        <li>4.無法使用在 img、input、iframe、或 br。</li>
+        <li>5.在結構上，before被建立在內容區域的前方，after在內容區域的後方。</li>
+      </ul>
+    </div>
+
+    </div>
+
+
+    <div class="container">
+      <h1>當作清除浮動</h1>
+    </div>
+    <div class="container bg-color clearfix">
+
+      <div class="col">
+        <img src="https://picsum.photos/600/400/?random=10">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci amet quibusdam alias sequi nemo laudantium.
+          Tenetur, minima expedita voluptatum quasi dolores corporis maiores numquam, exercitationem quibusdam earum
+          assumenda vero consequatur.
+        </p>
+      </div>
+      <div class="col">
+        <img src="https://picsum.photos/600/400/?random=10">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci amet quibusdam alias sequi nemo laudantium.
+          Tenetur, minima expedita voluptatum quasi dolores corporis maiores numquam, exercitationem quibusdam earum
+          assumenda vero consequatur.
+        </p>
+      </div>
+
+    </div>
+
+    <hr>
+
+    <div class="container">
+      <h1>當作背景容器使用</h1>
+    </div>
+    <div class="container">
+      <div class="bg">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, repudiandae tempore consectetur minima
+        accusantium aliquam. Corporis nesciunt blanditiis quam. Amet esse dolore sapiente quidem saepe incidunt unde,
+        rem,
+        soluta atque tempora magnam nobis quae repudiandae alias nostrum, hic iure quos quaerat? Harum modi, culpa
+
+      </div>
+
+    </div>
+
+    <hr>
+
+    <div class="container">
+      <h1>摸到主體，讓分身做事情</h1>
+    </div>
+    <div class="container">
+      <div class="box3"></div>
+      <div class="inside"></div>
+    </div>
+  </body>
+
+</html>
